@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Processing Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="cursor-light"></div>
+
+<div class="toggle">
+    <button onclick="toggleMode()">🌙</button>
+</div>
+
+<div class="container">
+
+    <h1>Image Processing Service</h1>
+
+    <form id="uploadForm" method="POST" action="/process" enctype="multipart/form-data">
+
+        <div class="drop-area" id="dropArea">
+            <p>Drag & Drop Image Here</p>
+            <input type="file" name="image" id="fileInput" required hidden>
+            <button type="button" onclick="document.getElementById('fileInput').click()">Browse</button>
+        </div>
+
+        <img id="preview" />
+
+        <select name="operation" required>
+            <option value="">Select Operation</option>
+            <option value="resize">Resize</option>
+            <option value="blur">Blur</option>
+            <option value="edge">Edge Detection</option>
+            <option value="rotate">Rotate</option>
+        </select>
+
+        <button type="submit" class="process-btn">Process Image</button>
+
+        <div class="loader" id="loader"></div>
+
+    </form>
+
+    {% if processed %}
+        <a href="{{ processed }}" download class="download-btn">Download Image</a>
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
